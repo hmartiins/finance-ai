@@ -44,7 +44,7 @@ class Chart extends StatelessWidget {
         topTitles: const AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
-        leftTitles: AxisTitles(),
+        leftTitles: const AxisTitles(),
       );
 
   List<LineChartBarData> get lineBarsData1 => [
@@ -95,7 +95,7 @@ class Chart extends StatelessWidget {
 
   LineChartBarData get lineChartBarData1_1 => LineChartBarData(
         isCurved: true,
-        color: Color(0xffAF52DE),
+        color: const Color(0xffAF52DE),
         barWidth: 3,
         isStrokeCapRound: true,
         dotData: const FlDotData(show: false),

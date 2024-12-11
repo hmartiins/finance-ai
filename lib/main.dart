@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      localizationsDelegates: [],
+      localizationsDelegates: const [],
       themeMode: ThemeMode.system,
       routerConfig: router(),
     );

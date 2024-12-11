@@ -68,7 +68,7 @@ class HomeWallet extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
+            const Text(
               r"-R$ 249.99",
               style: TextStyle(
                 fontSize: 16,
@@ -117,7 +117,7 @@ class HomeWallet extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
+            const Text(
               r"-R$ 249.99",
               style: TextStyle(
                 fontSize: 16,
