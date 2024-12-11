@@ -1,3 +1,5 @@
+import 'package:finance_ai/ui/core/themes/theme.dart';
+
 import 'routing/router.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       localizationsDelegates: const [],
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
       routerConfig: router(),
     );
