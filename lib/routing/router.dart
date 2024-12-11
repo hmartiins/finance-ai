@@ -1,4 +1,7 @@
+import 'package:finance_ai/ui/home/view_models/home_viewmodel.dart';
 import 'package:finance_ai/ui/home/widgets/home_screen.dart';
+import 'package:finance_ai/ui/new_expense/view_models/new_expense_viewmodel.dart';
+import 'package:finance_ai/ui/new_expense/widgets/new_expense_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,7 +19,21 @@ GoRouter router() => GoRouter(
         GoRoute(
           path: Routes.home,
           builder: (context, state) {
-            return const HomeScreen();
+            final viewModel = HomeViewModel();
+
+            return HomeScreen(
+              viewModel: viewModel,
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.newExpanse,
+          builder: (context, state) {
+            final viewModel = NewExpenseViewModel();
+
+            return NewExpenseScreen(
+              viewModel: viewModel,
+            );
           },
         ),
       ],
