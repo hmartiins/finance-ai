@@ -10,15 +10,15 @@ abstract final class AppTheme {
     ),
     titleMedium: TextStyle(
       fontSize: 32,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     ),
     titleSmall: TextStyle(
       fontSize: 24,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     ),
     bodyLarge: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
     ),
     bodyMedium: TextStyle(
       fontSize: 16,
@@ -41,15 +41,25 @@ abstract final class AppTheme {
   // TODO: adicionar estilo de input
   static const _inputDecorationTheme = InputDecorationTheme();
 
-  // TODO: adicionar estilo de botão
-  static const _buttonTheme = ButtonThemeData();
+  static final _buttonStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(AppColors.violet100),
+    shape: MaterialStateProperty.all(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+    ),
+  );
+
+  static final _filledButtonThemeData = FilledButtonThemeData(
+    style: _buttonStyle,
+  );
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: AppColors.lightColorScheme,
     textTheme: _textTheme,
-    buttonTheme: _buttonTheme,
+    filledButtonTheme: _filledButtonThemeData,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
     extensions: [],
@@ -60,7 +70,6 @@ abstract final class AppTheme {
     brightness: Brightness.dark,
     colorScheme: AppColors.darkColorScheme,
     textTheme: _textTheme,
-    buttonTheme: _buttonTheme,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
     extensions: [],
