@@ -1,5 +1,7 @@
+import 'package:finance_ai/routing/routes.dart';
 import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingButtons extends StatelessWidget {
   const OnboardingButtons({super.key});
@@ -39,7 +41,9 @@ class OnboardingButtons extends StatelessWidget {
                   AppColors.violet20,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                context.go(Routes.home);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
