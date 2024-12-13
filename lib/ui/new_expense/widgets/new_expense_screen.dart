@@ -1,6 +1,7 @@
 import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:finance_ai/ui/core/ui/page_container.dart';
 import 'package:finance_ai/ui/new_expense/widgets/new_expense_body.dart';
+import 'package:finance_ai/ui/new_expense/widgets/new_expense_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -31,10 +32,12 @@ class NewExpenseScreen extends StatelessWidget {
         elevation: 0,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Container(),
           ),
+          const NewExpenseValue(),
           const NewExpenseBody(),
         ],
       ),
