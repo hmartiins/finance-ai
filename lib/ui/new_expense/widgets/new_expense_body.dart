@@ -58,9 +58,7 @@ class NewExpenseBody extends StatelessWidget {
                   )
                 : ImageAttachment(
                     image: viewModel.image!,
-                    onTap: () {
-                      print("Remove Image");
-                    },
+                    onTap: viewModel.removeImage,
                   ),
             const SizedBox(height: 16),
             SizedBox(

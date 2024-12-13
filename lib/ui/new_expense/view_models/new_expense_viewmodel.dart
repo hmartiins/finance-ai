@@ -90,4 +90,10 @@ class NewExpenseViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void removeImage() {
+    _image = null;
+    _path = null;
+    notifyListeners();
+  }
 }
