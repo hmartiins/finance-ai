@@ -38,8 +38,34 @@ abstract final class AppTheme {
     ),
   );
 
-  // TODO: adicionar estilo de input
-  static const _inputDecorationTheme = InputDecorationTheme();
+  static final _inputDecorationTheme = InputDecorationTheme(
+    hintStyle: const TextStyle(
+      fontSize: 16,
+      color: AppColors.dark25,
+      fontWeight: FontWeight.normal,
+    ),
+    filled: true,
+    fillColor: Colors.white,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+    border: OutlineInputBorder(
+      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(16),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: AppColors.light20,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(16),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: AppColors.light20,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(16),
+    ),
+  );
 
   static final _buttonStyle = ButtonStyle(
     backgroundColor: MaterialStateProperty.all(AppColors.violet100),
