@@ -26,10 +26,8 @@ class NewExpenseScreen extends StatelessWidget {
                 color: Colors.white,
               ),
         ),
-        centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: AppColors.red100,
-        elevation: 0,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

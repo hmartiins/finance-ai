@@ -88,6 +88,10 @@ abstract final class AppTheme {
     filledButtonTheme: _filledButtonThemeData,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
+    appBarTheme: const AppBarTheme(
+      elevation: 0,
+      centerTitle: true,
+    ),
     extensions: [],
   );
 
