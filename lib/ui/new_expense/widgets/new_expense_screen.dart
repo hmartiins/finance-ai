@@ -1,12 +1,18 @@
 import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:finance_ai/ui/core/ui/page_container.dart';
+import 'package:finance_ai/ui/new_expense/view_models/new_expense_viewmodel.dart';
 import 'package:finance_ai/ui/new_expense/widgets/new_expense_body.dart';
 import 'package:finance_ai/ui/new_expense/widgets/new_expense_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class NewExpenseScreen extends StatelessWidget {
-  const NewExpenseScreen({super.key});
+  const NewExpenseScreen({
+    super.key,
+    required this.viewModel,
+  });
+
+  final NewExpenseViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +35,22 @@ class NewExpenseScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: AppColors.red100,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Container(),
-          ),
-          const NewExpenseValue(),
-          const NewExpenseBody(),
-        ],
+      child: ListenableBuilder(
+        listenable: viewModel,
+        builder: (context, snapshot) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(),
+              ),
+              const NewExpenseValue(),
+              NewExpenseBody(
+                viewModel: viewModel,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

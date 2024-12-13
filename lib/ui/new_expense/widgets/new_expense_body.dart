@@ -1,9 +1,17 @@
 import 'package:finance_ai/ui/core/ui/add_attachment.dart';
 import 'package:finance_ai/ui/core/ui/dropdown.dart';
+import 'package:finance_ai/ui/core/ui/image_attachment.dart';
+import 'package:finance_ai/ui/new_expense/view_models/new_expense_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NewExpenseBody extends StatelessWidget {
-  const NewExpenseBody({super.key});
+  const NewExpenseBody({
+    super.key,
+    required this.viewModel,
+  });
+
+  final NewExpenseViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +31,7 @@ class NewExpenseBody extends StatelessWidget {
           vertical: 24,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Dropdown(
               selectedValue: "Category",
@@ -41,7 +50,18 @@ class NewExpenseBody extends StatelessWidget {
               options: const ["Nubank", "Paypal", "Itaú"],
             ),
             const SizedBox(height: 16),
-            const AddAttachment(),
+            viewModel.image == null
+                ? AddAttachment(
+                    onTap: () {
+                      viewModel.getImage.execute(ImageSource.gallery);
+                    },
+                  )
+                : ImageAttachment(
+                    image: viewModel.image!,
+                    onTap: () {
+                      print("Remove Image");
+                    },
+                  ),
             const SizedBox(height: 16),
             SizedBox(
               width: size.width,

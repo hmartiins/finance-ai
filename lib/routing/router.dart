@@ -43,7 +43,9 @@ GoRouter router() => GoRouter(
           builder: (context, state) {
             final viewModel = NewExpenseViewModel();
 
-            return NewExpenseScreen();
+            return NewExpenseScreen(
+              viewModel: viewModel,
+            );
           },
         ),
       ],
