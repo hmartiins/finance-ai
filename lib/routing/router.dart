@@ -6,6 +6,7 @@ import 'package:finance_ai/ui/onboarding/view_models/onboarding_viewmodel.dart';
 import 'package:finance_ai/ui/onboarding/widgets/onboarding_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import 'routes.dart';
 
@@ -41,7 +42,9 @@ GoRouter router() => GoRouter(
         GoRoute(
           path: Routes.newExpanse,
           builder: (context, state) {
-            final viewModel = NewExpenseViewModel();
+            final viewModel = NewExpenseViewModel(
+              openAIService: context.read(),
+            );
 
             return NewExpenseScreen(
               viewModel: viewModel,

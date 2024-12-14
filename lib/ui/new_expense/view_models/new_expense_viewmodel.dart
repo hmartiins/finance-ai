@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:finance_ai/data/services/openai-service.dart';
 import 'package:finance_ai/utils/command.dart';
 import 'package:finance_ai/utils/result.dart';
 import 'package:flutter/foundation.dart';
@@ -9,9 +10,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
 
 class NewExpenseViewModel extends ChangeNotifier {
-  NewExpenseViewModel() {
+  NewExpenseViewModel({
+    required OpenAIService openAIService,
+  }) : _openAIService = openAIService {
     getImage = Command1(_getImage);
     processImageToText = Command0(_processImage);
+    transformRecognizedTextToJsonByAI =
+        Command0(_transformRecognizedTextToJsonByAI);
   }
 
   File? _image;
@@ -24,11 +29,17 @@ class NewExpenseViewModel extends ChangeNotifier {
 
   final _imagePicker = ImagePicker();
 
-  final _log = Logger('HomeViewModel');
+  final _log = Logger('NewExpenseViewModel');
 
+  final OpenAIService _openAIService;
   late Command1<void, ImageSource> getImage;
   late Command0<void> processImageToText;
+  late Command0<void> transformRecognizedTextToJsonByAI;
 
+  /// Get image from [source].
+  ///
+  /// After executing this command, the image file is saved in [image] and the
+  /// path to the image file is saved in [path].
   Future<Result<void>> _getImage(ImageSource source) async {
     try {
       _log.info('Getting image from source: $source');
@@ -57,6 +68,14 @@ class NewExpenseViewModel extends ChangeNotifier {
     }
   }
 
+  /// Process the image to text.
+  ///
+  /// To process the image to recognized text, we use the [TextRecognizer] from google_mlkit_text_recognition.
+  /// Image-to-text recognition is a routine that runs on the device's processor. This way, it works offline and
+  /// without the need to communicate with external APIs and free of charge.
+  ///
+  /// If the image is processed successfully, the [_textImage] will be set.
+  /// If the path of image is not set, an error will be returned.
   Future<Result<void>> _processImage() async {
     if (_path == null) {
       return Result.error(
@@ -74,7 +93,7 @@ class NewExpenseViewModel extends ChangeNotifier {
       final inputImage = InputImage.fromFilePath(_path!);
 
       final recognizedText = await textRecognizer.processImage(inputImage);
-      _textImage = 'Recognized text:\n\n${recognizedText.text}';
+      _textImage = recognizedText.text;
 
       _log.info('Image processed to text.');
 
@@ -91,6 +110,46 @@ class NewExpenseViewModel extends ChangeNotifier {
     }
   }
 
+  /// Transform the recognized text to json by AI.
+  ///
+  /// To transform the recognized text to json by AI, we use the [transformRecognizedTextToJson] from [OpenAIService].
+  Future<Result<void>> _transformRecognizedTextToJsonByAI() async {
+    if (_textImage == null) {
+      _log.warning('No text image to transform.');
+      return Result.error(
+        Exception('No text image to transform.'),
+      );
+    }
+
+    _log.info('Transforming recognized text to json by AI.');
+
+    try {
+      final result =
+          await _openAIService.transformRecognizedTextToJson(_textImage!);
+
+      if (result is Error) {
+        return Result.error(
+          Exception('Error transforming recognized text to json by AI.'),
+        );
+      }
+
+      _log.info('Recognized text transformed to json by AI.');
+
+      return const Result.ok(null);
+    } catch (e) {
+      _log.severe(
+        'Error transforming recognized text to json by AI. Error: $e',
+      );
+
+      return Result.error(
+        Exception(
+          'Error transforming recognized text to json by AI. Error: $e',
+        ),
+      );
+    }
+  }
+
+  /// Set the [image] and [path] to null.
   void removeImage() {
     _image = null;
     _path = null;

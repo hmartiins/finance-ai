@@ -64,7 +64,10 @@ class NewExpenseBody extends StatelessWidget {
             SizedBox(
               width: size.width,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await viewModel.processImageToText.execute();
+                  await viewModel.transformRecognizedTextToJsonByAI.execute();
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
