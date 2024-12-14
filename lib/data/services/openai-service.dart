@@ -20,7 +20,7 @@ class OpenAIService {
   static final _openApiKey = dotenv.get('OPENAI_API_KEY', fallback: 'a');
   static final model = OpenAI(
     defaultOptions: const OpenAIOptions(
-      temperature: 0.9,
+      temperature: 0.2,
     ),
     apiKey: _openApiKey,
   );
@@ -30,14 +30,14 @@ class OpenAIService {
   /// Transforms the recognized text into a JSON object using the OpenAI API.
   ///
   /// Receives the recognized text and returns a JSON object.
-  Future<Result<dynamic>> transformRecognizedTextToJsonByAI(
+  Future<Result<dynamic>> transformRecognizedTextToJson(
     String text,
   ) async {
     try {
       /// TODO: The prompt should be a constant in the class.
       final prompt = PromptValue.string("""
           Provide exclusively a JSON containing the total amount of the order, along with a list of items 
-          and the price of each item. The JSON must strictly follow the structure below,
+          and the price of each item. The JSON must strictly follow the structure below:
           {
             "total": <total_value>,
             "items": [
