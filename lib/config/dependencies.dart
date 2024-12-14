@@ -1,4 +1,4 @@
-import 'package:finance_ai/data/services/openai-service.dart';
+import 'package:finance_ai/data/services/openai_service.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 

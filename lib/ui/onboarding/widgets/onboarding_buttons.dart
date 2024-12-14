@@ -37,7 +37,7 @@ class OnboardingButtons extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: FilledButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                   AppColors.violet20,
                 ),
               ),

@@ -52,8 +52,6 @@ abstract final class AppColors {
     onSurface: AppColors.dark100,
     error: Colors.white,
     onError: Colors.red,
-    background: Colors.white,
-    onBackground: Colors.white,
   );
 
   static const darkColorScheme = ColorScheme(
@@ -66,7 +64,5 @@ abstract final class AppColors {
     onSurface: Colors.white,
     error: Colors.black,
     onError: AppColors.red100,
-    background: Colors.white,
-    onBackground: Colors.white,
   );
 }

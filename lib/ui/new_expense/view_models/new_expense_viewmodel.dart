@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:finance_ai/data/services/openai-service.dart';
+import 'package:finance_ai/data/services/openai_service.dart';
 import 'package:finance_ai/utils/command.dart';
 import 'package:finance_ai/utils/result.dart';
 import 'package:flutter/foundation.dart';

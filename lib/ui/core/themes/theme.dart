@@ -68,8 +68,8 @@ abstract final class AppTheme {
   );
 
   static final _buttonStyle = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(AppColors.violet100),
-    shape: MaterialStateProperty.all(
+    backgroundColor: WidgetStateProperty.all(AppColors.violet100),
+    shape: WidgetStateProperty.all(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -92,7 +92,7 @@ abstract final class AppTheme {
       elevation: 0,
       centerTitle: true,
     ),
-    extensions: [],
+    extensions: const [],
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -102,6 +102,6 @@ abstract final class AppTheme {
     textTheme: _textTheme,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
-    extensions: [],
+    extensions: const [],
   );
 }
