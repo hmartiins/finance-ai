@@ -6,6 +6,7 @@
 
 import 'dart:convert';
 
+import 'package:finance_ai/domain/expanse/expense_amount_details.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
@@ -29,8 +30,8 @@ class OpenAIService {
 
   /// Transforms the recognized text into a JSON object using the OpenAI API.
   ///
-  /// Receives the recognized text and returns a JSON object.
-  Future<Result<dynamic>> transformRecognizedTextToJson(
+  /// Receives the recognized text and returns a JSON object, same as [ExpenseAmountDetails].
+  Future<Result<ExpenseAmountDetails>> transformRecognizedTextToJson(
     String text,
   ) async {
     try {
@@ -58,7 +59,7 @@ class OpenAIService {
       _log.info('Transformed text to json by AI. Result $result');
 
       final responseOutput = result.output;
-      final responseJson = jsonDecode(responseOutput);
+      final responseJson = jsonDecode(responseOutput) as ExpenseAmountDetails;
 
       return Result.ok(responseJson);
     } on Exception catch (e) {
