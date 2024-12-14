@@ -13,6 +13,10 @@ migrate_working_dir/
 # Environment variable
 .env
 
+# Code generators outputs
+*.g.dart
+*.freezed.dart
+
 # IntelliJ related
 *.iml
 *.ipr
