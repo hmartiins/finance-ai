@@ -27,7 +27,8 @@ class Chart extends StatelessWidget {
   LineTouchData get lineTouchData1 => LineTouchData(
         handleBuiltInTouches: true,
         touchTooltipData: LineTouchTooltipData(
-          getTooltipColor: (touchedSpot) => Colors.blueGrey.withOpacity(0.8),
+          getTooltipColor: (touchedSpot) =>
+              Colors.blueGrey.withAlpha((0.8 * 255).toInt()),
         ),
       );
 

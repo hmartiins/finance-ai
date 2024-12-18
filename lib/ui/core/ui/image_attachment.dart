@@ -39,7 +39,7 @@ class ImageAttachment extends StatelessWidget {
               onTap: onTap,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: AppColors.dark75.withOpacity(0.4),
+                  color: AppColors.dark75.withAlpha((0.4 * 255).toInt()),
                   shape: BoxShape.circle,
                 ),
                 child: const Padding(
