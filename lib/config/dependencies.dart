@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_ai/adapters/storage/firebase/firebase_adapter.dart';
+import 'package:finance_ai/adapters/storage/storage_adapter.dart';
 import 'package:finance_ai/data/services/openai_service.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -6,6 +9,11 @@ import 'package:provider/single_child_widget.dart';
 List<SingleChildWidget> _sharedProviders = [
   Provider(
     create: (context) => OpenAIService(),
+  ),
+  Provider<IStorageAdapter>(
+    create: (context) => FirebaseAdapter(
+      firestore: FirebaseFirestore.instance,
+    ),
   ),
 ];
 
