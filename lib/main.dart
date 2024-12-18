@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: const [],
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routerConfig: router(),
     );
