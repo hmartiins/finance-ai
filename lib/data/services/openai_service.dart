@@ -22,6 +22,7 @@ class OpenAIService {
   static final model = OpenAI(
     defaultOptions: const OpenAIOptions(
       temperature: 0.2,
+      maxTokens: 3300,
     ),
     apiKey: _openApiKey,
   );
@@ -58,8 +59,8 @@ class OpenAIService {
 
       _log.info('Transformed text to json by AI. Result $result');
 
-      final responseOutput = result.output;
-      final responseJson = jsonDecode(responseOutput) as ExpenseAmountDetails;
+      final responseOutput = jsonDecode(result.output);
+      final responseJson = ExpenseAmountDetails.fromJson(responseOutput);
 
       return Result.ok(responseJson);
     } on Exception catch (e) {

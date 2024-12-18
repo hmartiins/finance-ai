@@ -7,7 +7,7 @@ part 'expense_amount_details.g.dart';
 @freezed
 class ExpenseAmountDetails with _$ExpenseAmountDetails {
   const factory ExpenseAmountDetails({
-    required ExpenseItems items,
+    required List<ExpenseItems> items,
     required double total,
   }) = _ExpenseAmountDetails;
 
