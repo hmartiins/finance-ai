@@ -72,17 +72,17 @@ class FirebaseAdapter implements IStorageAdapter {
   /// await firebaseAdapter.create(user);
   /// ```
   @override
-  Future<void> create<T>(T value) async {
+  Future<void> create<T>(Map<String, dynamic> value) async {
     try {
       final collection = firestore.collection(_getCollectionName<T>());
       final data = _toFirestore(value);
-      if (data.containsKey('id')) {
+      if (data.containsKey('id') && data['id'] != null) {
         await collection.doc(data['id'].toString()).set(data);
       } else {
         await collection.add(data);
       }
     } catch (e) {
-      _log.warning('Error creating document: $e');
+      _log.warning('Error to creating document in $T collection: $e');
     }
   }
 
