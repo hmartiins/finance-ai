@@ -6,6 +6,7 @@ part 'expense.g.dart';
 
 @freezed
 class Expense with _$Expense {
+  @JsonSerializable(explicitToJson: true)
   const factory Expense({
     int? id,
     required DateTime createdAt,

@@ -5,6 +5,7 @@ part 'expense_items.g.dart';
 
 @freezed
 class ExpenseItems with _$ExpenseItems {
+  @JsonSerializable(explicitToJson: true)
   const factory ExpenseItems({
     required String name,
     required double price,

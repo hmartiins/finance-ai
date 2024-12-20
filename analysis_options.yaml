@@ -1,1 +1,7 @@
 include: package:flutter_lints/flutter.yaml
+analyzer:
+  errors:
+    # This rule is being ignored because we need to annotate the factories of
+    # our classes that implement @freezed with @JsonSerializable, and because
+    # it annotates a factory and not a class it returns an invalid error.
+    invalid_annotation_target: ignore
