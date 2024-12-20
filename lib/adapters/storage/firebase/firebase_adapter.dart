@@ -66,10 +66,11 @@ class FirebaseAdapter implements IStorageAdapter {
   /// If the object has an `id` field, it will be used as the document ID.
   /// Otherwise, Firestore will generate an ID automatically.
   ///
+  /// If you use a class with freezed anotation, you can use the toJson() method to convert the object to a map.
   /// Example:
   /// ```dart
-  /// final user = {'id': 1, 'name': 'John Doe'};
-  /// await firebaseAdapter.create(user);
+  /// final user = User(id: 1, name: 'John Doe');
+  /// await firebaseAdapter.create(user.toJson());
   /// ```
   @override
   Future<void> create<T>(Map<String, dynamic> value) async {
