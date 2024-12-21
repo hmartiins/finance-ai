@@ -36,6 +36,7 @@ class NewExpenseBody extends StatelessWidget {
             Dropdown(
               selectedValue: "Category",
               options: const ["Category", "Food", "Clothes"],
+              onChanged: (value) {},
             ),
             const SizedBox(height: 16),
             TextField(
@@ -48,6 +49,7 @@ class NewExpenseBody extends StatelessWidget {
             Dropdown(
               selectedValue: "Nubank",
               options: const ["Nubank", "Paypal", "Itaú"],
+              onChanged: (value) {},
             ),
             const SizedBox(height: 16),
             viewModel.image == null

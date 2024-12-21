@@ -2,14 +2,16 @@ import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 class Dropdown extends StatefulWidget {
-  Dropdown({
+  const Dropdown({
     super.key,
     required this.options,
     required this.selectedValue,
+    required this.onChanged,
   });
 
-  String selectedValue;
+  final String selectedValue;
   final List<String> options;
+  final Function(String?) onChanged;
 
   @override
   DropdownState createState() => DropdownState();
@@ -40,11 +42,7 @@ class DropdownState extends State<Dropdown> {
           fontSize: 16,
           color: AppColors.dark25,
         ),
-        onChanged: (String? newValue) {
-          setState(() {
-            widget.selectedValue = newValue!;
-          });
-        },
+        onChanged: widget.onChanged,
         items: widget.options.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
