@@ -1,4 +1,4 @@
-import 'package:finance_ai/domain/expanse/expense_amount_details.dart';
+import 'package:finance_ai/domain/expanse/models/expense_amount_details.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'expense.freezed.dart';
