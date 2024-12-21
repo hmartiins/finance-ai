@@ -6,7 +6,7 @@
 
 import 'dart:convert';
 
-import 'package:finance_ai/domain/expanse/expense_amount_details.dart';
+import 'package:finance_ai/domain/expanse/models/expense_amount_details.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';

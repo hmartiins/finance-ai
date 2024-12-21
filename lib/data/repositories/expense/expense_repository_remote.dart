@@ -1,6 +1,6 @@
 import 'package:finance_ai/adapters/storage/storage_adapter.dart';
 import 'package:finance_ai/data/repositories/expense/expense_repository.dart';
-import 'package:finance_ai/domain/expanse/expense.dart';
+import 'package:finance_ai/domain/expanse/models/expense.dart';
 import 'package:finance_ai/utils/result.dart';
 
 class ExpenseRepositoryRemote implements ExpenseRepository {
