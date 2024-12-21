@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:finance_ai/data/services/openai_service.dart';
+import 'package:finance_ai/domain/expanse/models/expense.dart';
+import 'package:finance_ai/domain/expanse/models/expense_amount_details.dart';
+import 'package:finance_ai/domain/expanse/usecases/expense_create_use_case.dart';
 import 'package:finance_ai/utils/command.dart';
 import 'package:finance_ai/utils/result.dart';
 import 'package:flutter/foundation.dart';
@@ -12,16 +15,20 @@ import 'package:logging/logging.dart';
 class NewExpenseViewModel extends ChangeNotifier {
   NewExpenseViewModel({
     required OpenAIService openAIService,
-  }) : _openAIService = openAIService {
+    required ExpenseCreateUseCase expenseCreateUseCase,
+  })  : _openAIService = openAIService,
+        _expenseCreateUseCase = expenseCreateUseCase {
     getImage = Command1(_getImage);
     processImageToText = Command0(_processImage);
     transformRecognizedTextToJsonByAI =
         Command0(_transformRecognizedTextToJsonByAI);
+    createExpense = Command0(_createExpense);
   }
 
   File? _image;
   String? _path;
   String? _textImage;
+  ExpenseAmountDetails? _expenseAmountDetailsRecognized;
 
   File? get image => _image;
   String? get path => _path;
@@ -32,9 +39,12 @@ class NewExpenseViewModel extends ChangeNotifier {
   final _log = Logger('NewExpenseViewModel');
 
   final OpenAIService _openAIService;
+  final ExpenseCreateUseCase _expenseCreateUseCase;
+
   late Command1<void, ImageSource> getImage;
   late Command0<void> processImageToText;
   late Command0<void> transformRecognizedTextToJsonByAI;
+  late Command0<void> createExpense;
 
   /// Get image from [source].
   ///
@@ -127,10 +137,15 @@ class NewExpenseViewModel extends ChangeNotifier {
       final result =
           await _openAIService.transformRecognizedTextToJson(_textImage!);
 
-      if (result is Error) {
-        return Result.error(
-          Exception('Error transforming recognized text to json by AI.'),
-        );
+      switch (result) {
+        case Ok<ExpenseAmountDetails>():
+          _expenseAmountDetailsRecognized = result.value;
+
+          break;
+        case Error<ExpenseAmountDetails>():
+          return Result.error(
+            Exception('Error transforming recognized text to json by AI.'),
+          );
       }
 
       _log.info('Recognized text transformed to json by AI.');
@@ -146,6 +161,34 @@ class NewExpenseViewModel extends ChangeNotifier {
           'Error transforming recognized text to json by AI. Error: $e',
         ),
       );
+    }
+  }
+
+  Future<Result<void>> _createExpense() async {
+    if (_expenseAmountDetailsRecognized == null) {
+      return Result.error(
+        Exception('No recognized amount details to create expense.'),
+      );
+    }
+
+    final expense = Expense(
+      createdAt: DateTime.now(),
+      title: 'teste2',
+      category: 'teste2',
+      wallet: 'teste2',
+      amountDetails: _expenseAmountDetailsRecognized!,
+    );
+
+    final result = await _expenseCreateUseCase.createFrom(expense);
+    switch (result) {
+      case Ok<Expense>():
+        _log.fine('Created Expense');
+        notifyListeners();
+        return const Result.ok(null);
+      case Error<Expense>():
+        _log.warning('Create Expense error: ${result.error}');
+        notifyListeners();
+        return Result.error(result.error);
     }
   }
 

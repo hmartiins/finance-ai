@@ -44,6 +44,7 @@ GoRouter router() => GoRouter(
           builder: (context, state) {
             final viewModel = NewExpenseViewModel(
               openAIService: context.read(),
+              expenseCreateUseCase: context.read(),
             );
 
             return NewExpenseScreen(

@@ -67,6 +67,7 @@ class NewExpenseBody extends StatelessWidget {
                 onPressed: () async {
                   await viewModel.processImageToText.execute();
                   await viewModel.transformRecognizedTextToJsonByAI.execute();
+                  await viewModel.createExpense.execute();
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
