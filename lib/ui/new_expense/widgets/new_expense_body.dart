@@ -5,13 +5,23 @@ import 'package:finance_ai/ui/new_expense/view_models/new_expense_viewmodel.dart
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class NewExpenseBody extends StatelessWidget {
+class NewExpenseBody extends StatefulWidget {
   const NewExpenseBody({
     super.key,
     required this.viewModel,
   });
 
   final NewExpenseViewModel viewModel;
+
+  @override
+  State<NewExpenseBody> createState() => _NewExpenseBodyState();
+}
+
+class _NewExpenseBodyState extends State<NewExpenseBody> {
+  final TextEditingController _category =
+      TextEditingController(text: "Category");
+  final TextEditingController _description = TextEditingController();
+  final TextEditingController _wallet = TextEditingController(text: "Wallet");
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +44,13 @@ class NewExpenseBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Dropdown(
-              selectedValue: "Category",
+              selectedValue: _category.value.text,
               options: const ["Category", "Food", "Clothes"],
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  _category.value = TextEditingValue(text: value!);
+                });
+              },
             ),
             const SizedBox(height: 16),
             TextField(
@@ -44,32 +58,42 @@ class NewExpenseBody extends StatelessWidget {
                 hintText: "Description",
               ),
               style: Theme.of(context).textTheme.bodyMedium,
+              controller: _description,
             ),
             const SizedBox(height: 16),
             Dropdown(
-              selectedValue: "Nubank",
-              options: const ["Nubank", "Paypal", "Itaú"],
-              onChanged: (value) {},
+              selectedValue: _wallet.value.text,
+              options: const ["Wallet", "Nubank", "Paypal", "Itaú"],
+              onChanged: (value) {
+                setState(() {
+                  _wallet.value = TextEditingValue(text: value!);
+                });
+              },
             ),
             const SizedBox(height: 16),
-            viewModel.image == null
+            widget.viewModel.image == null
                 ? AddAttachment(
                     onTap: () {
-                      viewModel.getImage.execute(ImageSource.gallery);
+                      widget.viewModel.getImage.execute(ImageSource.gallery);
                     },
                   )
                 : ImageAttachment(
-                    image: viewModel.image!,
-                    onTap: viewModel.removeImage,
+                    image: widget.viewModel.image!,
+                    onTap: widget.viewModel.removeImage,
                   ),
             const SizedBox(height: 16),
             SizedBox(
               width: size.width,
               child: FilledButton(
                 onPressed: () async {
-                  await viewModel.processImageToText.execute();
-                  await viewModel.transformRecognizedTextToJsonByAI.execute();
-                  await viewModel.createExpense.execute();
+                  await widget.viewModel.processImageToText.execute();
+                  await widget.viewModel.transformRecognizedTextToJsonByAI
+                      .execute();
+                  await widget.viewModel.createExpense.execute((
+                    _description.value.text,
+                    _category.value.text,
+                    _wallet.value.text,
+                  ));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),

@@ -22,7 +22,9 @@ class NewExpenseViewModel extends ChangeNotifier {
     processImageToText = Command0(_processImage);
     transformRecognizedTextToJsonByAI =
         Command0(_transformRecognizedTextToJsonByAI);
-    createExpense = Command0(_createExpense);
+    createExpense =
+        Command1<void, (String title, String category, String wallet)>(
+            _createExpense);
   }
 
   File? _image;
@@ -44,7 +46,7 @@ class NewExpenseViewModel extends ChangeNotifier {
   late Command1<void, ImageSource> getImage;
   late Command0<void> processImageToText;
   late Command0<void> transformRecognizedTextToJsonByAI;
-  late Command0<void> createExpense;
+  late Command1 createExpense;
 
   /// Get image from [source].
   ///
@@ -164,18 +166,21 @@ class NewExpenseViewModel extends ChangeNotifier {
     }
   }
 
-  Future<Result<void>> _createExpense() async {
+  Future<Result<void>> _createExpense(
+      (String, String, String) credentials) async {
     if (_expenseAmountDetailsRecognized == null) {
       return Result.error(
         Exception('No recognized amount details to create expense.'),
       );
     }
 
+    final (title, category, wallet) = credentials;
+
     final expense = Expense(
       createdAt: DateTime.now(),
-      title: 'teste2',
-      category: 'teste2',
-      wallet: 'teste2',
+      title: title,
+      category: category,
+      wallet: wallet,
       amountDetails: _expenseAmountDetailsRecognized!,
     );
 

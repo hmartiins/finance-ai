@@ -35,7 +35,7 @@ class DropdownState extends State<Dropdown> {
         isExpanded: true,
         underline: Container(),
         icon: Icon(
-          Icons.arrow_drop_down,
+          Icons.keyboard_arrow_down,
           color: Colors.grey.shade400,
         ),
         style: const TextStyle(
