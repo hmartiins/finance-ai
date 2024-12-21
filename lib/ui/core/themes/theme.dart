@@ -68,7 +68,12 @@ abstract final class AppTheme {
   );
 
   static final _buttonStyle = ButtonStyle(
-    backgroundColor: WidgetStateProperty.all(AppColors.violet100),
+    backgroundColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.disabled)) {
+        return AppColors.dark25.withAlpha((0.6 * 255).toInt());
+      }
+      return AppColors.violet100;
+    }),
     shape: WidgetStateProperty.all(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
