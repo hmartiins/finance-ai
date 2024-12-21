@@ -44,7 +44,9 @@ class NewExpenseScreen extends StatelessWidget {
               Expanded(
                 child: Container(),
               ),
-              const NewExpenseValue(),
+              NewExpenseValue(
+                viewModel: viewModel,
+              ),
               NewExpenseBody(
                 viewModel: viewModel,
               ),

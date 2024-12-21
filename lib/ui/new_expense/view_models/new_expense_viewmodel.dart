@@ -34,7 +34,8 @@ class NewExpenseViewModel extends ChangeNotifier {
 
   File? get image => _image;
   String? get path => _path;
-  String? get textImage => _textImage;
+  ExpenseAmountDetails? get expenseAmountDetailsRecognized =>
+      _expenseAmountDetailsRecognized;
 
   final _imagePicker = ImagePicker();
 
@@ -163,6 +164,8 @@ class NewExpenseViewModel extends ChangeNotifier {
           'Error transforming recognized text to json by AI. Error: $e',
         ),
       );
+    } finally {
+      notifyListeners();
     }
   }
 

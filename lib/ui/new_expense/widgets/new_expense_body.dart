@@ -73,8 +73,12 @@ class _NewExpenseBodyState extends State<NewExpenseBody> {
             const SizedBox(height: 16),
             widget.viewModel.image == null
                 ? AddAttachment(
-                    onTap: () {
-                      widget.viewModel.getImage.execute(ImageSource.gallery);
+                    onTap: () async {
+                      await widget.viewModel.getImage
+                          .execute(ImageSource.gallery);
+                      await widget.viewModel.processImageToText.execute();
+                      await widget.viewModel.transformRecognizedTextToJsonByAI
+                          .execute();
                     },
                   )
                 : ImageAttachment(
@@ -86,9 +90,6 @@ class _NewExpenseBodyState extends State<NewExpenseBody> {
               width: size.width,
               child: FilledButton(
                 onPressed: () async {
-                  await widget.viewModel.processImageToText.execute();
-                  await widget.viewModel.transformRecognizedTextToJsonByAI
-                      .execute();
                   await widget.viewModel.createExpense.execute((
                     _description.value.text,
                     _category.value.text,
