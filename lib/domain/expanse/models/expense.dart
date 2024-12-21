@@ -13,7 +13,6 @@ class Expense with _$Expense {
     required String title,
     required String category,
     required String wallet,
-    required double amount,
     required ExpenseAmountDetails amountDetails,
   }) = _Expense;
 
