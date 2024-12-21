@@ -70,7 +70,7 @@ abstract final class AppTheme {
   static final _buttonStyle = ButtonStyle(
     backgroundColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.disabled)) {
-        return AppColors.dark25.withAlpha((0.6 * 255).toInt());
+        return AppColors.light20;
       }
       return AppColors.violet100;
     }),
@@ -85,6 +85,10 @@ abstract final class AppTheme {
     style: _buttonStyle,
   );
 
+  static const _progressIndicatorThemeData = ProgressIndicatorThemeData(
+    color: AppColors.violet100,
+  );
+
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
@@ -97,6 +101,7 @@ abstract final class AppTheme {
       elevation: 0,
       centerTitle: true,
     ),
+    progressIndicatorTheme: _progressIndicatorThemeData,
     extensions: const [],
   );
 
@@ -107,6 +112,11 @@ abstract final class AppTheme {
     textTheme: _textTheme,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
+    appBarTheme: const AppBarTheme(
+      elevation: 0,
+      centerTitle: true,
+    ),
+    progressIndicatorTheme: _progressIndicatorThemeData,
     extensions: const [],
   );
 }
