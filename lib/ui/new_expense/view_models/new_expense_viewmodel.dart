@@ -27,6 +27,16 @@ class NewExpenseViewModel extends ChangeNotifier {
             _createExpense);
   }
 
+  final _log = Logger('NewExpenseViewModel');
+
+  final OpenAIService _openAIService;
+  final ExpenseCreateUseCase _expenseCreateUseCase;
+
+  late Command1<void, ImageSource> getImage;
+  late Command0<void> processImageToText;
+  late Command0<void> transformRecognizedTextToJsonByAI;
+  late Command1 createExpense;
+
   File? _image;
   String? _path;
   String? _textImage;
@@ -42,16 +52,6 @@ class NewExpenseViewModel extends ChangeNotifier {
       createExpense.running;
 
   final _imagePicker = ImagePicker();
-
-  final _log = Logger('NewExpenseViewModel');
-
-  final OpenAIService _openAIService;
-  final ExpenseCreateUseCase _expenseCreateUseCase;
-
-  late Command1<void, ImageSource> getImage;
-  late Command0<void> processImageToText;
-  late Command0<void> transformRecognizedTextToJsonByAI;
-  late Command1 createExpense;
 
   /// Get image from [source].
   ///
