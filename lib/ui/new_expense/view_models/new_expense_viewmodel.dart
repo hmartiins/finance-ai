@@ -33,9 +33,13 @@ class NewExpenseViewModel extends ChangeNotifier {
   ExpenseAmountDetails? _expenseAmountDetailsRecognized;
 
   File? get image => _image;
-  String? get path => _path;
   ExpenseAmountDetails? get expenseAmountDetailsRecognized =>
       _expenseAmountDetailsRecognized;
+
+  bool get hasCommandLoading =>
+      transformRecognizedTextToJsonByAI.running ||
+      getImage.running ||
+      createExpense.running;
 
   final _imagePicker = ImagePicker();
 
@@ -190,7 +194,6 @@ class NewExpenseViewModel extends ChangeNotifier {
     final result = await _expenseCreateUseCase.createFrom(expense);
     switch (result) {
       case Ok<Expense>():
-        _log.fine('Created Expense');
         notifyListeners();
         return const Result.ok(null);
       case Error<Expense>():

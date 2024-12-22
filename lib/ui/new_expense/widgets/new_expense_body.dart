@@ -89,21 +89,26 @@ class _NewExpenseBodyState extends State<NewExpenseBody> {
             SizedBox(
               width: size.width,
               child: FilledButton(
-                onPressed: () async {
-                  await widget.viewModel.createExpense.execute((
-                    _description.value.text,
-                    _category.value.text,
-                    _wallet.value.text,
-                  ));
-                },
+                onPressed: widget.viewModel.hasCommandLoading
+                    ? null
+                    : () async {
+                        await widget.viewModel.createExpense.execute((
+                          _description.value.text,
+                          _category.value.text,
+                          _wallet.value.text,
+                        ));
+                      },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    "Continue",
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Colors.white,
+                  child: widget.viewModel.hasCommandLoading
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          "Continue",
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    color: Colors.white,
+                                  ),
                         ),
-                  ),
                 ),
               ),
             ),
