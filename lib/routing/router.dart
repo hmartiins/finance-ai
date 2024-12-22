@@ -43,7 +43,7 @@ GoRouter router() => GoRouter(
           path: Routes.newExpanse,
           builder: (context, state) {
             final viewModel = NewExpenseViewModel(
-              openAIService: context.read(),
+              generativeAIService: context.read(),
               expenseCreateUseCase: context.read(),
             );
 

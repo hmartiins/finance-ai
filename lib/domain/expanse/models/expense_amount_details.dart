@@ -12,6 +12,18 @@ class ExpenseAmountDetails with _$ExpenseAmountDetails {
     required double total,
   }) = _ExpenseAmountDetails;
 
+  static String get jsonTemplate => '''
+  {
+    "items": [
+      {
+        "name": "Item 1",
+        "price": 0.0
+      }
+    ],
+    "total": 0.0
+  }
+  ''';
+
   factory ExpenseAmountDetails.fromJson(Map<String, Object?> json) =>
       _$ExpenseAmountDetailsFromJson(json);
 }

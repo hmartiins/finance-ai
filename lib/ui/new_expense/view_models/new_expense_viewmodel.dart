@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:finance_ai/data/services/openai_service.dart';
+import 'package:finance_ai/adapters/generative_ai/generative_ai_adapter.dart';
 import 'package:finance_ai/domain/expanse/models/expense.dart';
 import 'package:finance_ai/domain/expanse/models/expense_amount_details.dart';
 import 'package:finance_ai/domain/expanse/usecases/expense_create_use_case.dart';
@@ -14,9 +14,9 @@ import 'package:logging/logging.dart';
 
 class NewExpenseViewModel extends ChangeNotifier {
   NewExpenseViewModel({
-    required OpenAIService openAIService,
+    required IGenerativeAIAdapter generativeAIService,
     required ExpenseCreateUseCase expenseCreateUseCase,
-  })  : _openAIService = openAIService,
+  })  : _generativeAIService = generativeAIService,
         _expenseCreateUseCase = expenseCreateUseCase {
     getImage = Command1(_getImage);
     processImageToText = Command0(_processImage);
@@ -29,7 +29,7 @@ class NewExpenseViewModel extends ChangeNotifier {
 
   final _log = Logger('NewExpenseViewModel');
 
-  final OpenAIService _openAIService;
+  final IGenerativeAIAdapter _generativeAIService;
   final ExpenseCreateUseCase _expenseCreateUseCase;
 
   late Command1<void, ImageSource> getImage;
@@ -141,21 +141,14 @@ class NewExpenseViewModel extends ChangeNotifier {
     _log.info('Transforming recognized text to json by AI.');
 
     try {
-      final result =
-          await _openAIService.transformRecognizedTextToJson(_textImage!);
+      final result = await _generativeAIService
+          .transformTextToEntity<ExpenseAmountDetails>(
+        _textImage!,
+        ExpenseAmountDetails.jsonTemplate,
+        ExpenseAmountDetails.fromJson,
+      );
 
-      switch (result) {
-        case Ok<ExpenseAmountDetails>():
-          _expenseAmountDetailsRecognized = result.value;
-
-          break;
-        case Error<ExpenseAmountDetails>():
-          return Result.error(
-            Exception('Error transforming recognized text to json by AI.'),
-          );
-      }
-
-      _log.info('Recognized text transformed to json by AI.');
+      _expenseAmountDetailsRecognized = result;
 
       return const Result.ok(null);
     } catch (e) {
