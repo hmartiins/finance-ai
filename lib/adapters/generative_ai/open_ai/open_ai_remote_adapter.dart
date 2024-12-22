@@ -5,14 +5,14 @@ import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:logging/logging.dart';
 
-class OpenAIAdapter implements IGenerativeAIAdapter {
+class OpenAIRemoteAdapter implements IGenerativeAIAdapter {
   final OpenAI openAIInstance;
 
-  OpenAIAdapter({
+  OpenAIRemoteAdapter({
     required this.openAIInstance,
   });
 
-  final _log = Logger('OpenAIService');
+  final _log = Logger('OpenAIRemoteAdapter');
 
   /// Transforma um texto bruto em uma entidade estruturada do tipo [T].
   ///

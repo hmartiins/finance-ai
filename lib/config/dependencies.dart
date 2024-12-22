@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_ai/adapters/generative_ai/generative_ai_adapter.dart';
-import 'package:finance_ai/adapters/generative_ai/open_ai/open_ai_adapter.dart';
+import 'package:finance_ai/adapters/generative_ai/open_ai/open_ai_local_adapter.dart';
+import 'package:finance_ai/adapters/generative_ai/open_ai/open_ai_remote_adapter.dart';
 import 'package:finance_ai/adapters/storage/firebase/firebase_adapter.dart';
 import 'package:finance_ai/adapters/storage/storage_adapter.dart';
 import 'package:finance_ai/config/open_ai_options.dart';
@@ -24,7 +25,7 @@ List<SingleChildWidget> _sharedProviders = [
 List<SingleChildWidget> get providersRemote {
   return [
     Provider<IGenerativeAIAdapter>(
-      create: (context) => OpenAIAdapter(
+      create: (context) => OpenAIRemoteAdapter(
         openAIInstance: OpenAiOptions.openAiInstance,
       ),
     ),
@@ -48,9 +49,7 @@ List<SingleChildWidget> get providersRemote {
 List<SingleChildWidget> get providersLocal {
   return [
     Provider<IGenerativeAIAdapter>(
-      create: (context) => OpenAIAdapter(
-        openAIInstance: OpenAiOptions.openAiInstance,
-      ),
+      create: (context) => OpenAILocalAdapter(),
     ),
     Provider<IStorageAdapter>(
       create: (context) => FirebaseAdapter(

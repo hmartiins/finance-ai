@@ -17,10 +17,10 @@ class ExpenseAmountDetails with _$ExpenseAmountDetails {
     "items": [
       {
         "name": "Item 1",
-        "price": 0.0
+        "price": 10.0
       }
     ],
-    "total": 0.0
+    "total": 10.0
   }
   ''';
 
