@@ -15,12 +15,10 @@ class PageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: backgroundColor,
-        appBar: appBar,
-        body: child,
-      ),
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      appBar: appBar,
+      body: child,
     );
   }
 }

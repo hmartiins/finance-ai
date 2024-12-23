@@ -1,6 +1,8 @@
+import 'package:finance_ai/routing/routes.dart';
 import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:finance_ai/ui/core/ui/page_container.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -44,7 +46,9 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               width: size.width,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.go(Routes.home);
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(

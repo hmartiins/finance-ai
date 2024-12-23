@@ -112,6 +112,7 @@ class _NewExpenseBodyState extends State<NewExpenseBody> {
                 ),
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
