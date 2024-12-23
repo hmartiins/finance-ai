@@ -42,7 +42,7 @@ class OnboardingButtons extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                context.go(Routes.home);
+                context.push(Routes.login);
               },
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

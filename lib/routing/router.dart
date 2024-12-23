@@ -1,3 +1,4 @@
+import 'package:finance_ai/ui/auth/login/widgets/login_screen.dart';
 import 'package:finance_ai/ui/home/view_models/home_viewmodel.dart';
 import 'package:finance_ai/ui/home/widgets/home_screen.dart';
 import 'package:finance_ai/ui/new_expense/view_models/new_expense_viewmodel.dart';
@@ -27,6 +28,12 @@ GoRouter router() => GoRouter(
             return OnboardingScreen(
               viewModel: viewModel,
             );
+          },
+        ),
+        GoRoute(
+          path: Routes.login,
+          builder: (context, state) {
+            return const LoginScreen();
           },
         ),
         GoRoute(
