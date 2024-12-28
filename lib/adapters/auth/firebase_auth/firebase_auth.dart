@@ -1,4 +1,5 @@
 import 'package:finance_ai/adapters/auth/storage_adapter.dart';
+import 'package:finance_ai/utils/result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logging/logging.dart';
 
@@ -12,21 +13,30 @@ class FirebaseAuthAdapter implements IAuthAdapter {
   final _log = Logger('FirebaseAuthAdapter');
 
   @override
-  Future<String> loginWithEmailAndPassword(
+  Future<Result<String>> loginWithEmailAndPassword(
     String email,
     String password,
   ) async {
     try {
       _log.info('Executing login with email and password');
 
+      if (email.isEmpty || password.isEmpty) {
+        return Result.error(Exception('E-mail and password must be filled'));
+      }
+
       final userCredential = await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      return userCredential.user?.uid ?? '';
+      _log.info(
+          'User logged in with email and password. User ${userCredential.user}');
+
+      return const Result.ok('User logged in with email and password');
     } catch (e) {
-      throw Exception('Erro ao realizar login: $e');
+      _log.severe('Error logging in with email and password: $e');
+      return Result.error(
+          Exception('Error logging in with email and password.'));
     }
   }
 

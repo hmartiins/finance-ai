@@ -1,11 +1,44 @@
 import 'package:finance_ai/routing/routes.dart';
+import 'package:finance_ai/ui/auth/login/view_model/login_view_model.dart';
 import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:finance_ai/ui/core/ui/page_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  final LoginViewModel viewModel;
+
+  const LoginScreen({
+    required this.viewModel,
+    super.key,
+  });
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.viewModel.login.addListener(_onResult);
+  }
+
+  @override
+  void didUpdateWidget(covariant LoginScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    oldWidget.viewModel.login.removeListener(_onResult);
+    widget.viewModel.login.addListener(_onResult);
+  }
+
+  @override
+  void dispose() {
+    widget.viewModel.login.removeListener(_onResult);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +58,7 @@ class LoginScreen extends StatelessWidget {
           children: [
             SizedBox(height: size.height * 0.1),
             TextField(
+              controller: _email,
               decoration: const InputDecoration(
                 hintText: "Email",
                 contentPadding:
@@ -34,6 +68,7 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             TextField(
+              controller: _password,
               decoration: const InputDecoration(
                 hintText: "Password",
                 contentPadding:
@@ -46,8 +81,11 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               width: size.width,
               child: FilledButton(
-                onPressed: () {
-                  context.go(Routes.home);
+                onPressed: () async {
+                  widget.viewModel.login.execute((
+                    _email.text,
+                    _password.text,
+                  ));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16),
@@ -102,5 +140,21 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onResult() {
+    if (widget.viewModel.login.completed) {
+      widget.viewModel.login.clearResult();
+      context.go(Routes.home);
+    }
+
+    if (widget.viewModel.login.error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login failed. Verify your credentials and try again.'),
+        ),
+      );
+      widget.viewModel.login.clearResult();
+    }
   }
 }
