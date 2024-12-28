@@ -112,6 +112,28 @@ abstract final class AppTheme {
     color: AppColors.violet100,
   );
 
+  static final _checkboxThemeData = CheckboxThemeData(
+    fillColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return AppColors.violet100;
+      }
+      return Colors.transparent;
+    }),
+    checkColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.disabled)) {
+        return AppColors.dark25;
+      }
+      return Colors.white;
+    }),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4),
+    ),
+    side: const BorderSide(
+      color: AppColors.violet100,
+      width: 2,
+    ),
+  );
+
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
@@ -121,6 +143,7 @@ abstract final class AppTheme {
     outlinedButtonTheme: _outlineButtonThemeData,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
+    checkboxTheme: _checkboxThemeData,
     appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: true,
@@ -138,6 +161,7 @@ abstract final class AppTheme {
     outlinedButtonTheme: _outlineButtonThemeData,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
+    checkboxTheme: _checkboxThemeData,
     appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: true,

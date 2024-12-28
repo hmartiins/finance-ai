@@ -89,6 +89,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
               obscureText: true,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
+            const SizedBox(height: 18),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Checkbox(
+                  value: true,
+                  onChanged: (bool? value) {},
+                ),
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'By signing up, you agree to the ',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      children: [
+                        TextSpan(
+                          text: 'Terms of Service and Privacy Policy',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: AppColors.violet100,
+                                  ),
+                        ),
+                      ],
+                    ),
+                    maxLines: 2,
+                    softWrap: true,
+                    overflow: TextOverflow.clip,
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 38),
             SizedBox(
               width: size.width,
@@ -119,7 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
             ),
             const SizedBox(height: 12),
-            SignUpGoogleButton(),
+            const SignUpGoogleButton(),
             const SizedBox(height: 14),
             InkWell(
               onTap: () {
