@@ -78,7 +78,7 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
       state.matchedLocation == Routes.onboarding;
 
   if (!loggedIn) {
-    return Routes.login;
+    return Routes.onboarding;
   }
 
   // if the user is logged in but still on the login page or onboarding page,
