@@ -1,23 +1,25 @@
 import 'package:finance_ai/routing/routes.dart';
 import 'package:finance_ai/ui/auth/login/view_model/login_view_model.dart';
+import 'package:finance_ai/ui/auth/sign_up/widgets/sing_up_google_button.dart';
 import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:finance_ai/ui/core/ui/page_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   final LoginViewModel viewModel;
 
-  const LoginScreen({
+  const SignUpScreen({
     required this.viewModel,
     super.key,
   });
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController _name = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
@@ -28,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  void didUpdateWidget(covariant LoginScreen oldWidget) {
+  void didUpdateWidget(covariant SignUpScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     oldWidget.viewModel.login.removeListener(_onResult);
     widget.viewModel.login.addListener(_onResult);
@@ -47,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return PageContainer(
       appBar: AppBar(
         title: Text(
-          'Login',
+          'Sign Up',
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         backgroundColor: Colors.white,
@@ -57,6 +59,16 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             SizedBox(height: size.height * 0.1),
+            TextField(
+              controller: _name,
+              decoration: const InputDecoration(
+                hintText: "Name",
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+              ),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 24),
             TextField(
               controller: _email,
               decoration: const InputDecoration(
@@ -90,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    "Login",
+                    "Sign Up",
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: Colors.white,
                         ),
@@ -98,36 +110,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 28),
-            InkWell(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Forgot Password?',
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: AppColors.violet100,
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-              ),
+            const SizedBox(height: 12),
+            Text(
+              'Or with',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: AppColors.dark25,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 12),
+            SignUpGoogleButton(),
+            const SizedBox(height: 14),
             InkWell(
               onTap: () {
-                context.push(Routes.signUp);
+                context.push(Routes.login);
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: RichText(
                   text: TextSpan(
-                    text: 'Don’t have an account yet? ',
+                    text: 'Already have an account? ',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: AppColors.dark25,
                         ),
                     children: [
                       TextSpan(
-                        text: 'Sign Up',
+                        text: 'Login',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               color: AppColors.violet100,
                               fontWeight: FontWeight.bold,

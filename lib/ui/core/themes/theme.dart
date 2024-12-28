@@ -67,22 +67,45 @@ abstract final class AppTheme {
     ),
   );
 
-  static final _buttonStyle = ButtonStyle(
-    backgroundColor: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.disabled)) {
-        return AppColors.light20;
-      }
-      return AppColors.violet100;
-    }),
-    shape: WidgetStateProperty.all(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+  static final _filledButtonThemeData = FilledButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) {
+          return AppColors.light20;
+        }
+        return AppColors.violet100;
+      }),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
       ),
     ),
   );
 
-  static final _filledButtonThemeData = FilledButtonThemeData(
-    style: _buttonStyle,
+  static final _outlineButtonThemeData = OutlinedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) {
+          return AppColors.light20;
+        }
+        return Colors.transparent;
+      }),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+      side: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.disabled)) {
+          return const BorderSide(color: AppColors.dark25);
+        }
+        return const BorderSide(
+          color: AppColors.light20,
+          width: 1.0,
+        );
+      }),
+    ),
   );
 
   static const _progressIndicatorThemeData = ProgressIndicatorThemeData(
@@ -95,6 +118,7 @@ abstract final class AppTheme {
     colorScheme: AppColors.lightColorScheme,
     textTheme: _textTheme,
     filledButtonTheme: _filledButtonThemeData,
+    outlinedButtonTheme: _outlineButtonThemeData,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
     appBarTheme: const AppBarTheme(
@@ -110,6 +134,8 @@ abstract final class AppTheme {
     brightness: Brightness.dark,
     colorScheme: AppColors.darkColorScheme,
     textTheme: _textTheme,
+    filledButtonTheme: _filledButtonThemeData,
+    outlinedButtonTheme: _outlineButtonThemeData,
     inputDecorationTheme: _inputDecorationTheme,
     fontFamily: GoogleFonts.inter().fontFamily,
     appBarTheme: const AppBarTheme(

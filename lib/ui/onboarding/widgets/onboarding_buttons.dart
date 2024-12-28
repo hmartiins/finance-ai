@@ -17,11 +17,13 @@ class OnboardingButtons extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push(Routes.signUp);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "Sign up",
+                  "Sign Up",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         color: Colors.white,
                       ),
