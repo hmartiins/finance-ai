@@ -1,3 +1,4 @@
+import 'package:finance_ai/adapters/auth/storage_adapter.dart';
 import 'package:finance_ai/ui/auth/login/view_model/login_view_model.dart';
 import 'package:finance_ai/ui/auth/login/widgets/login_screen.dart';
 import 'package:finance_ai/ui/home/view_models/home_viewmodel.dart';
@@ -71,6 +72,21 @@ GoRouter router() => GoRouter(
 
 // From https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/redirection.dart
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
+  // if the user is not logged in, they need to login
+  final bool loggedIn = await context.read<IAuthAdapter>().isAuthenticated();
+  final bool loggingIn = state.matchedLocation == Routes.login ||
+      state.matchedLocation == Routes.onboarding;
+
+  if (!loggedIn) {
+    return Routes.login;
+  }
+
+  // if the user is logged in but still on the login page or onboarding page,
+  // send them to the home page
+  if (loggingIn) {
+    return Routes.home;
+  }
+
   // no need to redirect at all
   return null;
 }
