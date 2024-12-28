@@ -9,30 +9,42 @@ class SignUpGoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return SizedBox(
-      width: size.width,
-      child: OutlinedButton(
-        onPressed: () {},
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Image(
-                image: AssetImage(Assets.googleIcon),
+    return Column(
+      children: [
+        Text(
+          'Or with',
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: AppColors.dark25,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(width: 10),
-              Text(
-                'Sign Up with Google',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: AppColors.dark50,
-                    ),
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          width: size.width,
+          child: OutlinedButton(
+            onPressed: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Image(
+                    image: AssetImage(Assets.googleIcon),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    'Sign Up with Google',
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: AppColors.dark50,
+                        ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
