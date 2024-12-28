@@ -1,14 +1,14 @@
 import 'package:finance_ai/adapters/auth/storage_adapter.dart';
 import 'package:finance_ai/utils/command.dart';
 import 'package:finance_ai/utils/result.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 class SignUpViewModel extends ChangeNotifier {
   SignUpViewModel({
     required IAuthAdapter authAdapter,
   }) : _authAdapter = authAdapter {
-    login = Command1<void, (String email, String password)>(_login);
+    register = Command0(_register);
   }
 
   final IAuthAdapter _authAdapter;
@@ -17,23 +17,41 @@ class SignUpViewModel extends ChangeNotifier {
   bool _termsAndConditionsAccepted = false;
   bool? get termsAndConditionsAccepted => _termsAndConditionsAccepted;
 
-  late Command1 login;
+  final TextEditingController name = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
 
-  Future<Result<String>> _login((String, String) credentials) async {
-    _log.info('Logging in with email and password');
+  late Command0 register;
 
-    final (email, password) = credentials;
+  bool get signUpButtonIsDisabled =>
+      register.running ||
+      termsAndConditionsAccepted == false ||
+      name.text.isEmpty ||
+      email.text.isEmpty ||
+      password.text.isEmpty;
 
-    final result = await _authAdapter.loginWithEmailAndPassword(
-      email,
-      password,
-    );
+  Future<Result<String>> _register() async {
+    notifyListeners();
 
-    if (result is Error<String>) {
-      _log.warning('Login failed! ${result.error}');
+    try {
+      _log.info('Registering user with email and password');
+
+      final result = await _authAdapter.registerWithEmailAndPassword(
+        email.text,
+        password.text,
+      );
+
+      if (result is Error<String>) {
+        _log.warning('Register failed! ${result.error}');
+      }
+
+      return result;
+    } catch (e) {
+      _log.warning('Register failed! $e');
+      return Result.error(Exception('An error occurred'));
+    } finally {
+      notifyListeners();
     }
-
-    return result;
   }
 
   set termsAndConditionsAccepted(bool? value) {

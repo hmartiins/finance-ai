@@ -14,14 +14,10 @@ class SignUpForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    final TextEditingController name = TextEditingController();
-    final TextEditingController email = TextEditingController();
-    final TextEditingController password = TextEditingController();
-
     return Column(
       children: [
         TextField(
-          controller: name,
+          controller: viewModel.name,
           decoration: const InputDecoration(
             hintText: "Name",
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
@@ -30,7 +26,7 @@ class SignUpForm extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         TextField(
-          controller: email,
+          controller: viewModel.email,
           decoration: const InputDecoration(
             hintText: "Email",
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
@@ -39,7 +35,7 @@ class SignUpForm extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         TextField(
-          controller: password,
+          controller: viewModel.password,
           decoration: const InputDecoration(
             hintText: "Password",
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
@@ -82,12 +78,11 @@ class SignUpForm extends StatelessWidget {
         SizedBox(
           width: size.width,
           child: FilledButton(
-            onPressed: () async {
-              viewModel.login.execute((
-                email.text,
-                password.text,
-              ));
-            },
+            onPressed: viewModel.signUpButtonIsDisabled
+                ? null
+                : () async {
+                    await viewModel.register.execute();
+                  },
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Text(

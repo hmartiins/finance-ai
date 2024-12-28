@@ -3,7 +3,6 @@ import 'package:finance_ai/ui/auth/sign_up/view_model/sign_up_view_model.dart';
 import 'package:finance_ai/ui/auth/sign_up/widgets/sign_up_form.dart';
 import 'package:finance_ai/ui/auth/sign_up/widgets/sign_up_new_account.dart';
 import 'package:finance_ai/ui/auth/sign_up/widgets/sing_up_google_button.dart';
-import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:finance_ai/ui/core/ui/page_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,19 +23,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     super.initState();
-    widget.viewModel.login.addListener(_onResult);
+    widget.viewModel.register.addListener(_onResult);
   }
 
   @override
   void didUpdateWidget(covariant SignUpScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    oldWidget.viewModel.login.removeListener(_onResult);
-    widget.viewModel.login.addListener(_onResult);
+    oldWidget.viewModel.register.removeListener(_onResult);
+    widget.viewModel.register.addListener(_onResult);
   }
 
   @override
   void dispose() {
-    widget.viewModel.login.removeListener(_onResult);
+    widget.viewModel.register.removeListener(_onResult);
     super.dispose();
   }
 
@@ -56,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListenableBuilder(
             listenable: widget.viewModel,
-            builder: (context, snapshot) {
+            builder: (context, _) {
               return Column(
                 children: [
                   SizedBox(height: size.height * 0.1),
@@ -75,18 +74,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _onResult() {
-    if (widget.viewModel.login.completed) {
-      widget.viewModel.login.clearResult();
+    if (widget.viewModel.register.completed) {
+      widget.viewModel.register.clearResult();
       context.go(Routes.home);
     }
 
-    if (widget.viewModel.login.error) {
+    if (widget.viewModel.register.error) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Login failed. Verify your credentials and try again.'),
+          content: Text('Sign up failed! Please try again.'),
         ),
       );
-      widget.viewModel.login.clearResult();
+      widget.viewModel.register.clearResult();
     }
   }
 }

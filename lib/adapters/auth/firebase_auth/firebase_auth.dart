@@ -41,21 +41,28 @@ class FirebaseAuthAdapter implements IAuthAdapter {
   }
 
   @override
-  Future<String> registerWithEmailAndPassword(
+  Future<Result<String>> registerWithEmailAndPassword(
     String email,
     String password,
   ) async {
     try {
       _log.info('Executing register with email and password');
 
+      if (email.isEmpty || password.isEmpty) {
+        return Result.error(Exception('E-mail and password must be filled'));
+      }
+
       final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      return userCredential.user?.uid ?? '';
+      _log.info(
+          'User registered with email and password. User ${userCredential.user}');
+
+      return const Result.ok('User registered with email and password');
     } catch (e) {
-      throw Exception('Erro ao registrar usuário: $e');
+      return Result.error(Exception('Erro ao registrar usuário: $e'));
     }
   }
 
@@ -75,8 +82,11 @@ class FirebaseAuthAdapter implements IAuthAdapter {
     _log.info('Checking if user is authenticated');
 
     final currentUser = firebaseAuth.currentUser;
+    final isAuthenticated = currentUser != null;
 
-    return currentUser != null;
+    _log.info('User is authenticated: $isAuthenticated');
+
+    return isAuthenticated;
   }
 
   @override
