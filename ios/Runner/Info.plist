@@ -56,14 +56,14 @@
 		<false/>
 		<key>CFBundleURLTypes</key>
 		<array>
-				<dict>
-						<key>CFBundleTypeRole</key>
-						<string>Editor</string>
-						<key>CFBundleURLSchemes</key>
-						<array>
-								<string>com.googleusercontent.apps.242328539375-seic7f7on2k95lj9iv91t1igsmkrarsb</string>
-						</array>
-				</dict>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.242328539375-seic7f7on2k95lj9iv91t1igsmkrarsb</string>
+				</array>
+			</dict>
 		</array>
 	</dict>
 </plist>
