@@ -1,34 +1,57 @@
 import 'package:finance_ai/adapters/auth/auth_adapter.dart';
 import 'package:finance_ai/utils/command.dart';
 import 'package:finance_ai/utils/result.dart';
+import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
 
-class LoginViewModel {
+class LoginViewModel extends ChangeNotifier {
   LoginViewModel({
     required IAuthAdapter authAdapter,
   }) : _authAdapter = authAdapter {
-    login = Command1<void, (String email, String password)>(_login);
+    login = Command0<void>(_login);
   }
 
   final IAuthAdapter _authAdapter;
   final _log = Logger('LoginViewModel');
 
-  late Command1 login;
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
 
-  Future<Result<String>> _login((String, String) credentials) async {
-    _log.info('Logging in with email and password');
+  bool get loginButtonIsDisabled =>
+      login.running || email.text.isEmpty || password.text.isEmpty;
 
-    final (email, password) = credentials;
+  late Command0 login;
 
-    final result = await _authAdapter.loginWithEmailAndPassword(
-      email,
-      password,
-    );
+  Future<Result<String>> _login() async {
+    notifyListeners();
 
-    if (result is Error<String>) {
-      _log.warning('Login failed! ${result.error}');
+    try {
+      _log.info('Logging in with email and password');
+
+      final result = await _authAdapter.loginWithEmailAndPassword(
+        email.text,
+        password.text,
+      );
+
+      if (result is Error<String>) {
+        _log.warning('Login failed! ${result.error}');
+      }
+
+      return result;
+    } catch (e) {
+      return Result.error(Exception('An error occurred'));
+    } finally {
+      notifyListeners();
     }
+  }
 
-    return result;
+  set emailValue(String value) {
+    email.text = value;
+    notifyListeners();
+  }
+
+  set passwordValue(String value) {
+    password.text = value;
+    notifyListeners();
   }
 }
