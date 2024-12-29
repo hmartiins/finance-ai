@@ -1,4 +1,4 @@
-import 'package:finance_ai/adapters/auth/storage_adapter.dart';
+import 'package:finance_ai/adapters/auth/auth_adapter.dart';
 import 'package:finance_ai/ui/auth/login/view_model/login_view_model.dart';
 import 'package:finance_ai/ui/auth/login/widgets/login_screen.dart';
 import 'package:finance_ai/ui/auth/sign_up/view_model/sign_up_view_model.dart';

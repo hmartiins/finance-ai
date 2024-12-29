@@ -1,4 +1,4 @@
-import 'package:finance_ai/adapters/auth/storage_adapter.dart';
+import 'package:finance_ai/adapters/auth/auth_adapter.dart';
 import 'package:finance_ai/utils/command.dart';
 import 'package:finance_ai/utils/result.dart';
 import 'package:flutter/material.dart';
