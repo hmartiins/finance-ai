@@ -9,6 +9,7 @@ class SignUpViewModel extends ChangeNotifier {
     required IAuthAdapter authAdapter,
   }) : _authAdapter = authAdapter {
     register = Command0(_register);
+    registerWithGoogle = Command0(_registerWithGoogle);
   }
 
   final IAuthAdapter _authAdapter;
@@ -22,6 +23,7 @@ class SignUpViewModel extends ChangeNotifier {
   final TextEditingController password = TextEditingController();
 
   late Command0 register;
+  late Command0 registerWithGoogle;
 
   bool get signUpButtonIsDisabled =>
       register.running ||
@@ -29,6 +31,25 @@ class SignUpViewModel extends ChangeNotifier {
       name.text.isEmpty ||
       email.text.isEmpty ||
       password.text.isEmpty;
+
+  Future<Result<String>> _registerWithGoogle() async {
+    try {
+      _log.info('Registering user with google');
+
+      final result = await _authAdapter.loginWithGoogle();
+
+      if (result is Error<String>) {
+        _log.warning('Register with google failed! ${result.error}');
+      }
+
+      return result;
+    } catch (e) {
+      _log.warning('Register with google failed! $e');
+      return Result.error(Exception('An error occurred'));
+    } finally {
+      notifyListeners();
+    }
+  }
 
   Future<Result<String>> _register() async {
     notifyListeners();

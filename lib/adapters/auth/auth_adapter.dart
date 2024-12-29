@@ -9,6 +9,7 @@ abstract class IAuthAdapter {
     String email,
     String password,
   );
+  Future<Result<String>> loginWithGoogle();
   Future<void> logout();
   Future<bool> isAuthenticated();
   Future<String?> getUserId();
