@@ -1,41 +1,43 @@
-import 'package:flutter/material.dart';
+import 'package:finance_ai/ui/core/ui/profile_icon.dart';
+import 'package:finance_ai/ui/home/widgets/month_dropdown.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:finance_ai/ui/core/themes/colors.dart';
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends StatefulWidget {
   const HomeHeader({super.key});
+
+  @override
+  State<HomeHeader> createState() => HomeHeaderState();
+}
+
+class HomeHeaderState extends State<HomeHeader> {
+  String selectedMonth = "";
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Olá, Henrique.",
-          style: TextStyle(
-            color: Color(0xff8E8E93),
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-          ),
-        ),
         const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              "Home",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 34,
-              ),
+            const ProfileIcon(
+              imageUrl: "https://github.com/hmartiins.png",
+              size: 32,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(99),
-              child: Image.network(
-                "https://github.com/hmartiins.png",
-                width: 42,
-                height: 42,
-              ),
-            )
+            MonthDropdown(
+              onChanged: (String month) {
+                setState(() {
+                  selectedMonth = month;
+                });
+              },
+            ),
+            const Icon(
+              CupertinoIcons.bell_fill,
+              color: AppColors.violet100,
+              size: 32,
+            ),
           ],
         )
       ],
