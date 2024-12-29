@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.2.1
+  flutter_native_splash: ^2.4.4
   freezed_annotation: ^2.4.4
   go_router: ^14.6.2
   google_fonts: ^6.2.1
@@ -46,6 +47,12 @@ flutter_launcher_icons:
 
   ios: true
   remove_alpha_channel_ios: true
+
+flutter_native_splash:
+  color: "#7F3DFF"
+  image: assets/financeai.png
+  color_dark: "#7F3DFF"
+  image_dark: assets/financeai.png
 
 flutter:
   uses-material-design: true
