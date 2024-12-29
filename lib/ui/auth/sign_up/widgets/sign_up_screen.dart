@@ -50,23 +50,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListenableBuilder(
             listenable: widget.viewModel,
             builder: (context, _) {
-              return Column(
-                children: [
-                  SizedBox(height: size.height * 0.1),
-                  SignUpForm(
-                    viewModel: widget.viewModel,
-                  ),
-                  const SizedBox(height: 12),
-                  const SignUpGoogleButton(),
-                  const SizedBox(height: 14),
-                  const SignUpNewAccount(),
-                ],
+              return SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(height: size.height * 0.1),
+                    SignUpForm(
+                      viewModel: widget.viewModel,
+                    ),
+                    const SizedBox(height: 12),
+                    const SignUpGoogleButton(),
+                    const SizedBox(height: 14),
+                    const SignUpNewAccount(),
+                  ],
+                ),
               );
             }),
       ),
