@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
-    required this.viewModel,
     super.key,
+    required this.viewModel,
   });
 
   final SignUpViewModel viewModel;

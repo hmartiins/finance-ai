@@ -2,7 +2,7 @@ import 'package:finance_ai/routing/routes.dart';
 import 'package:finance_ai/ui/auth/sign_up/view_model/sign_up_view_model.dart';
 import 'package:finance_ai/ui/auth/sign_up/widgets/sign_up_form.dart';
 import 'package:finance_ai/ui/auth/sign_up/widgets/sign_up_new_account.dart';
-import 'package:finance_ai/ui/auth/sign_up/widgets/sing_up_google_button.dart';
+import 'package:finance_ai/ui/auth/widgets/google_button.dart';
 import 'package:finance_ai/ui/core/ui/page_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,18 +24,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void initState() {
     super.initState();
     widget.viewModel.register.addListener(_onResult);
+    widget.viewModel.registerWithGoogle.addListener(_onResult);
   }
 
   @override
   void didUpdateWidget(covariant SignUpScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     oldWidget.viewModel.register.removeListener(_onResult);
+    oldWidget.viewModel.registerWithGoogle.removeListener(_onResult);
     widget.viewModel.register.addListener(_onResult);
+    widget.viewModel.registerWithGoogle.addListener(_onResult);
   }
 
   @override
   void dispose() {
     widget.viewModel.register.removeListener(_onResult);
+    widget.viewModel.registerWithGoogle.removeListener(_onResult);
     super.dispose();
   }
 
@@ -66,7 +70,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       viewModel: widget.viewModel,
                     ),
                     const SizedBox(height: 12),
-                    const SignUpGoogleButton(),
+                    GoogleButton(
+                      onPressed: widget.viewModel.registerWithGoogle.execute,
+                    ),
                     const SizedBox(height: 14),
                     const SignUpNewAccount(),
                   ],
@@ -83,6 +89,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       context.go(Routes.home);
     }
 
+    if (widget.viewModel.registerWithGoogle.completed) {
+      widget.viewModel.registerWithGoogle.clearResult();
+      context.go(Routes.home);
+    }
+
     if (widget.viewModel.register.error) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -90,6 +101,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       );
       widget.viewModel.register.clearResult();
+    }
+
+    if (widget.viewModel.registerWithGoogle.error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Sign up failed! Please try again.'),
+        ),
+      );
+      widget.viewModel.registerWithGoogle.clearResult();
     }
   }
 }
