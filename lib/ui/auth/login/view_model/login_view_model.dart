@@ -9,6 +9,7 @@ class LoginViewModel extends ChangeNotifier {
     required IAuthAdapter authAdapter,
   }) : _authAdapter = authAdapter {
     login = Command0<void>(_login);
+    loginWithGoogle = Command0<void>(_loginWithGoogle);
   }
 
   final IAuthAdapter _authAdapter;
@@ -21,6 +22,7 @@ class LoginViewModel extends ChangeNotifier {
       login.running || email.text.isEmpty || password.text.isEmpty;
 
   late Command0 login;
+  late Command0 loginWithGoogle;
 
   Future<Result<String>> _login() async {
     notifyListeners();
@@ -39,6 +41,25 @@ class LoginViewModel extends ChangeNotifier {
 
       return result;
     } catch (e) {
+      return Result.error(Exception('An error occurred'));
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<Result<String>> _loginWithGoogle() async {
+    try {
+      _log.info('Logging user with google');
+
+      final result = await _authAdapter.loginWithGoogle();
+
+      if (result is Error<String>) {
+        _log.warning('Login with google failed! ${result.error}');
+      }
+
+      return result;
+    } catch (e) {
+      _log.warning('Login with google failed! $e');
       return Result.error(Exception('An error occurred'));
     } finally {
       notifyListeners();

@@ -2,7 +2,7 @@ import 'package:finance_ai/routing/routes.dart';
 import 'package:finance_ai/ui/auth/sign_up/view_model/sign_up_view_model.dart';
 import 'package:finance_ai/ui/auth/sign_up/widgets/sign_up_form.dart';
 import 'package:finance_ai/ui/auth/sign_up/widgets/sign_up_new_account.dart';
-import 'package:finance_ai/ui/auth/sign_up/widgets/sing_up_google_button.dart';
+import 'package:finance_ai/ui/auth/widgets/google_button.dart';
 import 'package:finance_ai/ui/core/ui/page_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -70,8 +70,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       viewModel: widget.viewModel,
                     ),
                     const SizedBox(height: 12),
-                    SignUpGoogleButton(
-                      viewModel: widget.viewModel,
+                    GoogleButton(
+                      onPressed: widget.viewModel.registerWithGoogle.execute,
                     ),
                     const SizedBox(height: 14),
                     const SignUpNewAccount(),

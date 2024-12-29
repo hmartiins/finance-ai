@@ -1,15 +1,16 @@
 import 'package:finance_ai/config/assets.dart';
-import 'package:finance_ai/ui/auth/sign_up/view_model/sign_up_view_model.dart';
 import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 
-class SignUpGoogleButton extends StatelessWidget {
-  const SignUpGoogleButton({
+class GoogleButton extends StatelessWidget {
+  const GoogleButton({
     super.key,
-    required this.viewModel,
+    this.isLogin = false,
+    required this.onPressed,
   });
 
-  final SignUpViewModel viewModel;
+  final Future<void> Function() onPressed;
+  final bool isLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class SignUpGoogleButton extends StatelessWidget {
           width: size.width,
           child: OutlinedButton(
             onPressed: () async {
-              await viewModel.registerWithGoogle.execute();
+              await onPressed();
             },
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -42,7 +43,7 @@ class SignUpGoogleButton extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'Sign Up with Google',
+                    isLogin ? 'Login with Google' : 'Sign Up with Google',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: AppColors.dark50,
                         ),
