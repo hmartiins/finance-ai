@@ -3,7 +3,7 @@ import 'package:finance_ai/ui/auth/login/view_model/login_view_model.dart';
 import 'package:finance_ai/ui/auth/login/widgets/login_screen.dart';
 import 'package:finance_ai/ui/auth/sign_up/view_model/sign_up_view_model.dart';
 import 'package:finance_ai/ui/auth/sign_up/widgets/sign_up_screen.dart';
-import 'package:finance_ai/ui/home/view_models/home_viewmodel.dart';
+import 'package:finance_ai/ui/home/view_models/home_view_model.dart';
 import 'package:finance_ai/ui/home/widgets/home_screen.dart';
 import 'package:finance_ai/ui/new_expense/view_models/new_expense_viewmodel.dart';
 import 'package:finance_ai/ui/new_expense/widgets/new_expense_screen.dart';

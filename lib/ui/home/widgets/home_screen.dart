@@ -1,5 +1,5 @@
 import 'package:finance_ai/routing/routes.dart';
-import 'package:finance_ai/ui/home/view_models/home_viewmodel.dart';
+import 'package:finance_ai/ui/home/view_models/home_view_model.dart';
 import 'package:finance_ai/ui/home/widgets/home_balance.dart';
 import 'package:finance_ai/ui/home/widgets/home_chart.dart';
 import 'package:finance_ai/ui/home/widgets/home_header.dart';
@@ -43,8 +43,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: size.height * 0.31,
-                    child: const DecoratedBox(
-                      decoration: BoxDecoration(
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [Color(0xFFFFF6E5), Color(0xFFF8EDD8)],
                           stops: [0, 0.99],
@@ -57,12 +57,14 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           children: [
-                            HomeHeader(),
-                            SizedBox(height: 16),
-                            HomeBalance(),
+                            HomeHeader(
+                              viewModel: viewModel,
+                            ),
+                            const SizedBox(height: 16),
+                            const HomeBalance(),
                           ],
                         ),
                       ),

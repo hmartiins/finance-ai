@@ -1,17 +1,16 @@
 import 'package:finance_ai/ui/core/ui/profile_icon.dart';
+import 'package:finance_ai/ui/home/view_models/home_view_model.dart';
 import 'package:finance_ai/ui/home/widgets/month_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:finance_ai/ui/core/themes/colors.dart';
 
-class HomeHeader extends StatefulWidget {
-  const HomeHeader({super.key});
+class HomeHeader extends StatelessWidget {
+  final HomeViewModel viewModel;
 
-  @override
-  State<HomeHeader> createState() => HomeHeaderState();
-}
-
-class HomeHeaderState extends State<HomeHeader> {
-  String selectedMonth = "";
+  const HomeHeader({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +27,7 @@ class HomeHeaderState extends State<HomeHeader> {
             ),
             MonthDropdown(
               onChanged: (String month) {
-                setState(() {
-                  selectedMonth = month;
-                });
+                viewModel.monthValue = month;
               },
             ),
             const Icon(
