@@ -1,6 +1,7 @@
-import 'package:finance_ai/adapters/auth/storage_adapter.dart';
+import 'package:finance_ai/adapters/auth/auth_adapter.dart';
 import 'package:finance_ai/utils/result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
 
 class FirebaseAuthAdapter implements IAuthAdapter {
@@ -37,6 +38,32 @@ class FirebaseAuthAdapter implements IAuthAdapter {
       _log.severe('Error logging in with email and password: $e');
       return Result.error(
           Exception('Error logging in with email and password.'));
+    }
+  }
+
+  @override
+  Future<Result<String>> loginWithGoogle() async {
+    try {
+      _log.info('Executing login with google');
+
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final userCredential =
+          await firebaseAuth.signInWithCredential(credential);
+
+      _log.info('User logged in with Google. User ${userCredential.user}');
+
+      return const Result.ok('User logged in with Google.');
+    } catch (e) {
+      _log.severe('Error login with Google: $e');
+      return Result.error(Exception('Error login with Google.'));
     }
   }
 

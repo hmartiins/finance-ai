@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_ai/adapters/auth/firebase_auth/firebase_auth.dart';
-import 'package:finance_ai/adapters/auth/storage_adapter.dart';
+import 'package:finance_ai/adapters/auth/auth_adapter.dart';
 import 'package:finance_ai/adapters/generative_ai/generative_ai_adapter.dart';
 import 'package:finance_ai/adapters/generative_ai/open_ai/open_ai_local_adapter.dart';
 import 'package:finance_ai/adapters/generative_ai/open_ai/open_ai_remote_adapter.dart';
