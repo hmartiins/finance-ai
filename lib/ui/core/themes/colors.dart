@@ -6,7 +6,7 @@ abstract final class AppColors {
   static const dark75 = Color(0xFF161719);
   static const dark100 = Color(0xFF0D0E0F);
 
-  static const light20 = Color(0xFFE3E5E5);
+  static const light20 = Color(0xFF91919F);
   static const light40 = Color(0xFFF2F4F5);
   static const light60 = Color(0xFFF7F9FA);
   static const light80 = Color(0xFFFBFBFB);

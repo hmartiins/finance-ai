@@ -1,3 +1,5 @@
+import 'package:finance_ai/ui/core/themes/colors.dart';
+import 'package:finance_ai/ui/home/widgets/transaction_box.dart';
 import 'package:flutter/material.dart';
 
 class HomeBalance extends StatelessWidget {
@@ -5,53 +7,32 @@ class HomeBalance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xff5eabff),
-            Color(0xff3891f5),
-          ],
+    return Column(
+      children: [
+        Text(
+          "Account balance",
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall!
+              .copyWith(color: AppColors.light20),
         ),
-        borderRadius: BorderRadius.circular(26.0),
-      ),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 24,
+        const SizedBox(height: 8),
+        Text(
+          "\$1900",
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontSize: 40, color: AppColors.dark75),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        const SizedBox(height: 24),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Meu saldo",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  r"R$ 254,52",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 32,
-                  ),
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                ),
-              ],
-            )
+            TransactionBox(type: TransactionType.income, amount: 500),
+            TransactionBox(type: TransactionType.expense, amount: 1000),
           ],
-        ),
-      ),
+        )
+      ],
     );
   }
 }

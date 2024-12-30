@@ -22,6 +22,7 @@ class SignUpForm extends StatelessWidget {
             hintText: "Name",
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
           ),
+          textCapitalization: TextCapitalization.words,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 24),
