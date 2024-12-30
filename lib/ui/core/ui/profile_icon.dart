@@ -5,7 +5,11 @@ class ProfileIcon extends StatelessWidget {
   final double size;
   final String imageUrl;
 
-  const ProfileIcon({super.key, required this.size, required this.imageUrl});
+  const ProfileIcon({
+    super.key,
+    required this.size,
+    required this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
