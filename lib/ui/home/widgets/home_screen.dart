@@ -17,6 +17,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return SafeArea(
       top: true,
       bottom: true,
@@ -37,19 +39,47 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              body: const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    HomeHeader(),
-                    SizedBox(height: 16),
-                    HomeBalance(),
-                    SizedBox(height: 16),
-                    HomeChart(),
-                    SizedBox(height: 16),
-                    HomeWallet(),
-                  ],
-                ),
+              body: Column(
+                children: [
+                  SizedBox(
+                    height: size.height * 0.31,
+                    child: const DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xFFFFF6E5), Color(0xFFF8EDD8)],
+                          stops: [0, 0.99],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(32),
+                          bottomRight: Radius.circular(32),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            HomeHeader(),
+                            SizedBox(height: 16),
+                            HomeBalance(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 16),
+                        HomeChart(),
+                        SizedBox(height: 16),
+                        HomeWallet(),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             );
           }),
