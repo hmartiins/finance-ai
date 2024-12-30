@@ -1,3 +1,4 @@
+import 'package:finance_ai/constants.dart';
 import 'package:finance_ai/ui/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -11,21 +12,6 @@ class MonthDropdown extends StatefulWidget {
 }
 
 class MonthDropdownState extends State<MonthDropdown> {
-  final List<String> months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
-
   late String selectedMonth;
 
   @override
